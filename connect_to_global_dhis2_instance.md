@@ -21,7 +21,7 @@ If you want to visualize data from Global DHIS2 in Power BI, follow the steps be
 
 ### ✅ Step 2: Enter Connection Details
 
-If you’ve followed Step 1 correctly (which you probably did—unless you got distracted thinking the “More” button would lead you to a plate of nsima and beans 🍛), you'll now be prompted to enter connection details:
+If you’ve followed Step 1 correctly (which you probably did—unless you got distracted😂), you'll now be prompted to enter connection details:
 
 - **Server**: `10.100.11.42:5437`
 - **Database**: `dhis2`
