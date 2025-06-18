@@ -53,7 +53,7 @@ Start with the `public.column_names_summary` table. Go to **Advanced Editor** an
 #### Default Query:
 ```powerquery
 let
-    Source = PostgreSQL.Database("10.160.22.17:5434", "dhis2"),
+    Source = PostgreSQL.Database("10.100.11.42:5437", "dhis2"),
     public_column_names_summary = Source{[Schema="public",Item="column_names_summary"]}[Data]
 in
     public_column_names_summary
@@ -62,7 +62,7 @@ in
 #### Updated Query:
 ```powerquery
 let
-    Source = PostgreSQL.Database("10.160.22.17:5434", "dhis2"),
+    Source = PostgreSQL.Database("10.100.11.42:5437", "dhis2"),
     public_column_names_summary = Source{[Schema="public",Item="column_names_summary"]}[Data],
     #"Removed Columns" = Table.RemoveColumns(public_column_names_summary, {"index"})
 in
