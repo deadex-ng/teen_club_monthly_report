@@ -164,3 +164,94 @@ WHERE
         AND FLOOR((DATEDIFF(@endDate, op.birthdate) / 365.25)) < 10
 GROUP BY location , op.gender;
 ```
+
+# Microsoft SQL Teen Club Monthly 
+
+## Active in care 
+
+```sql
+USE openmrs_reporting;
+
+DECLARE @endDate DATE = '2024-12-31';
+
+-- Run the stored procedure
+EXEC dbo.create_last_teen2_club_outcome_at_facility @endDate = @endDate;
+
+-- Query with age filter using FLOOR(DATEDIFF / 365.25)
+SELECT 
+    ltcfo.location,
+    op.gender,
+    COUNT(*) AS [active_in_care_10_19]
+FROM
+    ##last_teen_club_facility_outcome ltcfo
+    LEFT JOIN omrs_patient op 
+        ON op.patient_id = ltcfo.pat
+WHERE
+    ltcfo.state IN ('Patient transfer in', 'First time initiation')
+    AND FLOOR(DATEDIFF(DAY, op.birthdate, @endDate) / 365.25) BETWEEN 10 AND 19
+GROUP BY 
+    ltcfo.location,
+    op.gender
+```
+
+## Active above 19 male and female
+```sql
+USE openmrs_reporting;
+
+DECLARE @endDate DATE = '2024-12-31';
+
+-- Run the stored procedure
+EXEC dbo.create_last_teen2_club_outcome_at_facility @endDate = @endDate;
+
+-- Query results with age filter 20-22
+SELECT 
+    ltcfo.location,
+    op.gender,
+    COUNT(*) AS [active_in_care_20_22]
+FROM
+    ##last_teen_club_facility_outcome ltcfo
+    LEFT JOIN omrs_patient op 
+        ON op.patient_id = ltcfo.pat
+WHERE
+    ltcfo.state IN ('Patient transfer in', 'First time initiation')
+    AND FLOOR(DATEDIFF(DAY, op.birthdate, @endDate) / 365.25) BETWEEN 20 AND 22
+GROUP BY 
+    ltcfo.location,
+    op.gender;
+```
+
+## Active below 10 male and female
+```sql
+USE openmrs_reporting;
+
+DECLARE @endDate DATE = '2024-12-31';
+
+-- Run the stored procedure
+EXEC dbo.create_last_teen2_club_outcome_at_facility @endDate = @endDate;
+
+-- Query results for patients below 10 years
+SELECT 
+    ltcfo.location,
+    op.gender,
+    COUNT(*) AS [active_in_care_below_10]
+FROM
+    ##last_teen_club_facility_outcome ltcfo
+    LEFT JOIN omrs_patient op 
+        ON op.patient_id = ltcfo.pat
+WHERE
+    ltcfo.state IN ('Patient transfer in', 'First time initiation')
+    AND FLOOR(DATEDIFF(DAY, op.birthdate, @endDate) / 365.25) < 10
+GROUP BY 
+    ltcfo.location,
+    op.gender;
+```
+
+
+
+
+
+
+
+
+
+
